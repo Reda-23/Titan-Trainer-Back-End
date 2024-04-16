@@ -1,7 +1,6 @@
 package com.example.colossaltitan.model;
 
-import com.example.colossaltitan.enums.WorkoutLevel;
-import com.example.colossaltitan.enums.WorkoutType;
+import com.example.colossaltitan.enums.Workout_Level;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +21,10 @@ public class Workout {
     private Long workoutId;
     private String workoutName;
     private int duration;
-    @Enumerated(value = EnumType.STRING)
-    private WorkoutType workoutType;
-    @Enumerated(value = EnumType.STRING)
-    private WorkoutLevel workoutLevel;
     @Lob
     private String note;
+    @Enumerated(value = EnumType.STRING)
+    private Workout_Level level;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Exercise> exercise;
 }

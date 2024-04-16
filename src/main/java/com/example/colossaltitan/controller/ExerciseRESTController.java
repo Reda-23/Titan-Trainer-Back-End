@@ -19,22 +19,18 @@ public class ExerciseRESTController {
     private ExerciseService exerciseService;
 
 
-    @PostMapping("/")
-    public ResponseEntity<ExerciseDTO> addExercise(@RequestBody ExerciseDTO exerciseDTO){
-        ExerciseDTO savedExercise = exerciseService.addExercise(exerciseDTO);
-        return new ResponseEntity<>(savedExercise, HttpStatus.OK);
-    }
 
-
-    @DeleteMapping("/delete/{exerciseId}")
-    public ResponseEntity<?> deleteExercise(@PathVariable Long exerciseId) throws ExerciseNotFoundException {
-        exerciseService.deleteExercise(exerciseId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @GetMapping("/exercises")
     public ResponseEntity<List<ExerciseDTO>> exercisesList(){
         List<ExerciseDTO> exerciseDTOS = exerciseService.exercisesList();
         return new ResponseEntity<>(exerciseDTOS,HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ExerciseDTO>> searchExercisesByName(@RequestParam String exerciseName){
+        List<ExerciseDTO> exerciseDTOS = exerciseService.searchExercisesByExercise_Name(exerciseName);
+        return new ResponseEntity<>(exerciseDTOS,HttpStatus.OK);
+
     }
 }

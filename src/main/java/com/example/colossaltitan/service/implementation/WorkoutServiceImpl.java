@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public WorkoutDTO addWorkout(WorkoutDTO workoutDTO) {
         Workout workout = mapper.fromDTOToWorkout(workoutDTO);
+        workout.setExercise(new ArrayList<>());
         Workout savedWorkout = workoutRepository.save(workout);
         return mapper.fromWorkoutToDTO(savedWorkout);
     }

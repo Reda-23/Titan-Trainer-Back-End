@@ -1,8 +1,5 @@
 package com.example.colossaltitan.model;
 
-import com.example.colossaltitan.enums.Materials;
-import com.example.colossaltitan.enums.Muscles;
-import com.example.colossaltitan.enums.WorkoutType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,11 +18,11 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long exerciseId;
-    private String exoName;
-    @Enumerated(value = EnumType.STRING)
-    private WorkoutType workoutType;
-    @Enumerated(value = EnumType.STRING)
-    private Muscles muscles;
-    @Enumerated(value = EnumType.STRING)
-    private Materials materials;
+    private String exercise_name;
+    private String description_url;
+    private String exercise_image;
+    private String muscle_group;
+    private String equipment;
+    private String rating;
+    private String description;
 }

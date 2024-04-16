@@ -9,11 +9,7 @@ public interface ExerciseService {
 
 
 
-    ExerciseDTO addExercise(ExerciseDTO exerciseDTO);
-
-
-    void deleteExercise(Long id) throws ExerciseNotFoundException;
-
     List<ExerciseDTO> exercisesList();
 
+    List<ExerciseDTO> searchExercisesByExercise_Name(String exerciseName);
 }

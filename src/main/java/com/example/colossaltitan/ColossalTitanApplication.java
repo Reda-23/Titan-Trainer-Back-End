@@ -31,24 +31,20 @@ public class ColossalTitanApplication  {
                                    GroupTrainingService groupTrainingService){
         return args -> {
             ClientDTO clientDTO = new ClientDTO("reda","-----","reda@gmail.com","1234",0.0,"06443332",186,96, Gender.MALE,new Date(), Language.ARABIC,"3 rue abou doud","Fes");
-            WorkoutDTO workoutDTO = new WorkoutDTO("PPL",90, WorkoutType.Strength_Training, WorkoutLevel.Vigorous,"this is the first workout ");
-            ExerciseDTO exerciseDTO = new ExerciseDTO("Incline Dumbbell Press",WorkoutType.Strength_Training, Muscles.CHEST, Materials.BARBELL);
-            ExerciseDTO exerciseDTO2 = new ExerciseDTO("Barbell Row",WorkoutType.Strength_Training, Muscles.BACK, Materials.MACHINE);
-            GroupTrainingDTO groupTrainingDTO = new GroupTrainingDTO("YOGA",35,LocalDate.now(),10,11);
-            workoutService.addWorkout(workoutDTO);
+             GroupTrainingDTO groupTrainingDTO = new GroupTrainingDTO("YOGA",35,LocalDate.now(),10,11);
+
             clientService.addClient(clientDTO);
-            exerciseService.addExercise(exerciseDTO);
-            exerciseService.addExercise(exerciseDTO2);
+
             groupTrainingService.addGroupTraining(groupTrainingDTO);
 
 
             try {
-                workoutService.addExerciseToWorkout(1L,1L);
+
                 walletService.fillWallet(1L,2800);
-                workoutService.addExerciseToWorkout(2L,1L);
-                clientService.addWorkoutToClient(1L,1L);
+
+
                 groupTrainingService.bookGroupTraining(1L,1L);
-            } catch (ExerciseNotFoundException | WorkoutNotFoundException | ClientNotFoundException |
+            } catch ( ClientNotFoundException |
                      CannotFillTheWalletWithNegativeAmountException | ClientHasAlreadyBookedThisGroupTrainingException e) {
                 throw new RuntimeException(e);
             }

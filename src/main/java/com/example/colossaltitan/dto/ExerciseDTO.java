@@ -1,8 +1,5 @@
 package com.example.colossaltitan.dto;
 
-import com.example.colossaltitan.enums.Materials;
-import com.example.colossaltitan.enums.Muscles;
-import com.example.colossaltitan.enums.WorkoutType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,8 +11,11 @@ import lombok.NoArgsConstructor;
 public class ExerciseDTO {
 
 
-    private String exoName;
-    private WorkoutType workoutType;
-    private Muscles muscles;
-    private Materials materials;
+    private String exercise_name;
+    private String description_url;
+    private String exercise_image;
+    private String muscle_group;
+    private String equipment;
+    private String rating;
+    private String description;
 }
