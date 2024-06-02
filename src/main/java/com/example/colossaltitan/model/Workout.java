@@ -25,6 +25,7 @@ public class Workout {
     private String note;
     @Enumerated(value = EnumType.STRING)
     private Workout_Level level;
+    private boolean isFavorite;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Exercise> exercise;
 }

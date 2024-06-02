@@ -1,6 +1,7 @@
 package com.example.colossaltitan.service.implementation;
 
 import com.example.colossaltitan.dto.ClientDTO;
+import com.example.colossaltitan.enums.Roles;
 import com.example.colossaltitan.exception.ClientNotFoundException;
 import com.example.colossaltitan.exception.WorkoutNotFoundException;
 import com.example.colossaltitan.mapper.ModelMapper;
@@ -12,6 +13,7 @@ import com.example.colossaltitan.service.ClientService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +28,15 @@ public class ClientServiceImpl implements ClientService {
     private ClientRepository clientRepository;
 
     private WorkoutRepository workoutRepository;
+    private PasswordEncoder encoder;
 
 
 
     @Override
     public ClientDTO addClient(ClientDTO clientDTO) {
         Client client = mapper.fromDTOToClient(clientDTO);
+        client.setPassword(encoder.encode(client.getPassword()));
+        client.setRoles(Roles.USER);
         Client savedClient = clientRepository.save(client);
         log.info("client saved into the db {} ",savedClient.getClientName());
         return mapper.fromClientToDTO(savedClient);

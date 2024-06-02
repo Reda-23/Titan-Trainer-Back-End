@@ -1,7 +1,6 @@
 package com.example.colossaltitan;
 
 import com.example.colossaltitan.dto.ClientDTO;
-import com.example.colossaltitan.dto.ExerciseDTO;
 import com.example.colossaltitan.dto.GroupTrainingDTO;
 import com.example.colossaltitan.dto.WorkoutDTO;
 import com.example.colossaltitan.enums.*;
@@ -15,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
+
 
 @SpringBootApplication
 public class ColossalTitanApplication  {
@@ -30,10 +29,13 @@ public class ColossalTitanApplication  {
                                    ExerciseService exerciseService , WalletService walletService,
                                    GroupTrainingService groupTrainingService){
         return args -> {
-            ClientDTO clientDTO = new ClientDTO("reda","-----","reda@gmail.com","1234",0.0,"06443332",186,96, Gender.MALE,new Date(), Language.ARABIC,"3 rue abou doud","Fes");
+            ClientDTO client1 = new ClientDTO("reda","-----","reda@gmail.com","1234",0.0,"06443332",186,96, Gender.MALE,new Date(), Language.ARABIC,"3 rue abou doud","Fes");
+            ClientDTO client2 = new ClientDTO("tipo","-----","tipo@gmail.com","1234",0.0,"06443332",186,96, Gender.MALE,new Date(), Language.ARABIC,"3 rue abou doud","Fes");
              GroupTrainingDTO groupTrainingDTO = new GroupTrainingDTO("YOGA",35,LocalDate.now(),10,11);
-
-            clientService.addClient(clientDTO);
+             workoutService.addWorkout(new WorkoutDTO(null,"Chest 101",60,"chest beginner workout for a crazy pump ",Workout_Level.Hard,false));
+             workoutService.addWorkout(new WorkoutDTO(null,"Back 102",60,"back  workout for a crazy pump ",Workout_Level.Medium,true));
+            clientService.addClient(client1);
+            clientService.addClient(client2);
 
             groupTrainingService.addGroupTraining(groupTrainingDTO);
 

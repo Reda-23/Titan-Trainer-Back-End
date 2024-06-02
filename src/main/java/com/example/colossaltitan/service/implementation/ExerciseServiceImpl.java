@@ -7,6 +7,8 @@ import com.example.colossaltitan.repository.ExerciseRepository;
 import com.example.colossaltitan.service.ExerciseService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,10 +26,11 @@ public class ExerciseServiceImpl implements ExerciseService {
 
 
     @Override
-    public List<ExerciseDTO> exercisesList() {
-        List<Exercise> exercises = exerciseRepository.findAll();
-        log.info("fetching the exercises list from the repository ");
-        return exercises.stream().map(ex -> mapper.fromExerciseToDTO(ex)).toList();
+    public Page<ExerciseDTO> exercisesList(int page, int size) {
+        Page<Exercise> exercises = exerciseRepository.findAll(PageRequest.of(page - 1, size));
+        log.info("fetching the exercises for page {} and size {} ", page, size);
+        Page<ExerciseDTO> exerciseList = exercises.map(exo -> mapper.fromExerciseToDTO(exo));
+        return exerciseList;
     }
 
     @Override
@@ -35,6 +38,44 @@ public class ExerciseServiceImpl implements ExerciseService {
         List<Exercise> exercises = exerciseRepository.searchExercisesByName(exerciseName);
         List<ExerciseDTO> exerciseDTOS = exercises.stream().map(ex -> mapper.fromExerciseToDTO(ex)).collect(Collectors.toList());
         return exerciseDTOS;
+    }
+
+    @Override
+    public List<ExerciseDTO> getAllExercises(){
+        List<Exercise> exercises = exerciseRepository.findAll();
+        List<ExerciseDTO> exerciseDTOS = exercises.stream().map(exo -> mapper.fromExerciseToDTO(exo)).toList();
+        return exerciseDTOS;
+    }
+
+
+    @Override
+    public List<ExerciseDTO> findWorkoutsByMuscleGroupLegs(){
+        List<Exercise> exercises = exerciseRepository.findWorkoutsByMuscleGroupLegs();
+        return exercises.stream().map(e -> mapper.fromExerciseToDTO(e)).toList();
+    }
+
+    @Override
+    public List<ExerciseDTO> findWorkoutsByMuscleGroupArms(){
+        List<Exercise> exercises = exerciseRepository.findWorkoutsByMuscleGroupArms();
+        return exercises.stream().map(e -> mapper.fromExerciseToDTO(e)).toList();
+    }
+
+    @Override
+    public List<ExerciseDTO> findWorkoutsByMuscleGroupChest(){
+        List<Exercise> exercises = exerciseRepository.findWorkoutsByMuscleGroupChest();
+        return exercises.stream().map(e -> mapper.fromExerciseToDTO(e)).toList();
+    }
+
+    @Override
+    public List<ExerciseDTO> findWorkoutsByMuscleGroupBack(){
+        List<Exercise> exercises = exerciseRepository.findWorkoutsByMuscleGroupBack();
+        return exercises.stream().map(e -> mapper.fromExerciseToDTO(e)).toList();
+    }
+
+    @Override
+    public List<ExerciseDTO> findWorkoutsByMuscleGroupShoulders(){
+        List<Exercise> exercises = exerciseRepository.findWorkoutsByMuscleGroupShoulders();
+        return exercises.stream().map(e -> mapper.fromExerciseToDTO(e)).toList();
     }
 
 }

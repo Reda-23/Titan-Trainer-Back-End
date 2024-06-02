@@ -15,4 +15,8 @@ public interface WorkoutService {
     void addExerciseToWorkout(Long exerciseID, Long workoutID) throws ExerciseNotFoundException, WorkoutNotFoundException;
 
     List<WorkoutDTO> workoutList() throws WorkoutListIsEmptyException;
+
+    List<WorkoutDTO> returnAllFavoriteWorkouts() throws WorkoutListIsEmptyException;
+
+    WorkoutDTO fav_unfav_Workout(Long workoutId) throws WorkoutNotFoundException;
 }

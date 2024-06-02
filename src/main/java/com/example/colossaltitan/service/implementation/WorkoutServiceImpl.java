@@ -12,6 +12,7 @@ import com.example.colossaltitan.repository.WorkoutRepository;
 import com.example.colossaltitan.service.WorkoutService;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Transactional
+@Slf4j
 public class WorkoutServiceImpl implements WorkoutService {
 
     private WorkoutRepository workoutRepository;
@@ -57,8 +59,25 @@ public class WorkoutServiceImpl implements WorkoutService {
     @Override
     public List<WorkoutDTO> workoutList() throws WorkoutListIsEmptyException {
         List<Workout> workouts = workoutRepository.findAll();
-        if (workouts.size() < 1) throw new WorkoutListIsEmptyException("workout list is empty");
+        if (workouts.isEmpty()) throw new WorkoutListIsEmptyException("workout list is empty");
         return workouts.stream().map(wr -> mapper.fromWorkoutToDTO(wr)).collect(Collectors.toList());
 
+    }
+
+     @Override
+    public List<WorkoutDTO> returnAllFavoriteWorkouts() throws WorkoutListIsEmptyException {
+        List<Workout> workouts = workoutRepository.findAllWorkoutIsFavoriteEqualToTrue();
+        if (workouts.isEmpty()) throw new WorkoutListIsEmptyException("favorite workout list is empty");
+        return workouts.stream().map(wor-> mapper.fromWorkoutToDTO(wor)).collect(Collectors.toList());
+    }
+    @Override
+    public WorkoutDTO fav_unfav_Workout(Long workoutId) throws WorkoutNotFoundException {
+        Workout workout = workoutRepository.findWorkoutByWorkoutId(workoutId)
+                .orElseThrow(()->new WorkoutNotFoundException("workout not found with this id " + workoutId));
+        workout.setFavorite(!workout.isFavorite());
+        log.info("updating the workout {}",workout.getWorkoutName());
+        workoutRepository.save(workout);
+
+        return mapper.fromWorkoutToDTO(workout);
     }
 }

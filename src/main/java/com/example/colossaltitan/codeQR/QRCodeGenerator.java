@@ -36,7 +36,7 @@ public class QRCodeGenerator {
                 "client phone number : " + client.getPhoneNumber();
         log.info("generating the QR-code for the client {}",client.getClientName());
         QRCodeWriter codeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = codeWriter.encode(clientData, BarcodeFormat.QR_CODE,200,200);
+        BitMatrix bitMatrix = codeWriter.encode(clientData, BarcodeFormat.QR_CODE,300,300);
         return MatrixToImageWriter.toBufferedImage(bitMatrix);
     }
 

@@ -15,4 +15,22 @@ public interface ExerciseRepository extends JpaRepository<Exercise,Long> {
     List<Exercise> searchExercisesByName(String exercise_name);
 
 
+
+    @Query("SELECT DISTINCT e FROM Exercise e WHERE e.muscle_group in ('Glutes' , 'Hamstrings', 'Quadriceps','Calves','Abductors','Adductors')")
+    List<Exercise> findWorkoutsByMuscleGroupLegs();
+
+    @Query("SELECT DISTINCT e FROM Exercise e WHERE e.muscle_group in ('Biceps' , 'Triceps','Forearms')")
+    List<Exercise> findWorkoutsByMuscleGroupArms();
+
+    @Query("SELECT DISTINCT e FROM Exercise e WHERE e.muscle_group in ('Chest')")
+    List<Exercise> findWorkoutsByMuscleGroupChest();
+
+    @Query("SELECT DISTINCT e FROM Exercise e WHERE e.muscle_group in ('Lats' , 'Lower Back','Middle Back','Neck')")
+    List<Exercise> findWorkoutsByMuscleGroupBack();
+
+    @Query("SELECT DISTINCT e FROM Exercise e WHERE e.muscle_group in ('Shoulders' , 'Traps')")
+    List<Exercise> findWorkoutsByMuscleGroupShoulders();
+
+
+
 }

@@ -2,6 +2,7 @@ package com.example.colossaltitan.model;
 
 import com.example.colossaltitan.enums.Gender;
 import com.example.colossaltitan.enums.Language;
+import com.example.colossaltitan.enums.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,8 @@ public class Client {
     private String imageUrl;
     private String clientEmail;
     private String password;
+    @Enumerated(value = EnumType.STRING)
+    private Roles roles;
     private double walletBalance;
     private String phoneNumber;
     private double height;
